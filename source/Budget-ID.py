@@ -11,6 +11,7 @@ parser.add_argument('--file_path',
 args = parser.parse_args()
 
 #%%
+# Read txt file and parse output
 def ParseInput(path):
     with open(path, 'r') as file:
         lines = file.readlines()
@@ -23,14 +24,17 @@ def ParseInput(path):
 
     return int(T), int(B), Flag, Objects
 
+# Main iterative deepening implementation
 def ID(T, B, Objects, Flag):
     for Depth in range(1, len(Objects) + 1):
         if Flag == 'V': print(f'Depth = {Depth}')
 
+        # Parameter Initialization
         DummyTuple = [([], 0, 0, 0)]  
         Addition = False
 
         while DummyTuple:
+            # Pop most recent value
             Order, Value, Cost, Index = DummyTuple.pop()
 
             if Cost <= B:
@@ -38,9 +42,11 @@ def ID(T, B, Objects, Flag):
                     print(f'{Order}. Value = {Value}. Cost = {Cost}.')
                     Addition = False
 
+                # Cost less than B and Value geq than T, goal state
                 if Value >= T:
                     return Order, Value, Cost
                 
+            # If can add a new object to the basket given current depth
             if Index < len(Objects) and len(Order) < Depth:
                 DummyTuple.append((Order, Value, Cost, Index + 1))
 
@@ -55,6 +61,7 @@ def ID(T, B, Objects, Flag):
                     
     return None
 
+# Helper function to determine output given Flag and search result
 def Output(DummyTuple, Flag):
     if DummyTuple is None:
         print("No Solution")
@@ -69,6 +76,7 @@ def Output(DummyTuple, Flag):
             print(f"Found solution {Order}. Value = {Value}. Cost = {Cost}.")
 
 #%%
+# Main
 if __name__ == '__main__': 
     T, B, Flag, Objects = ParseInput(args.file_path)
     Result = ID(T, B, Objects, Flag)
