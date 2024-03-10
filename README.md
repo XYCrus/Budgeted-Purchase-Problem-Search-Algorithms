@@ -27,7 +27,7 @@ To run the script with custom input, for example, `4.txt`:
 python Budget-ID.py --file_path ../data/4.txt
 ```
 
-### Running Iterative Deepening
+### Running Hill Climbing
 To run the Hill Climbing script with the default input (`5.txt`):
 ```bash
 cd source  # Navigate to the source directory if not already there
